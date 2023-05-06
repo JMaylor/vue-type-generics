@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="TValue, TItem">
+<script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem">
 import {
   Listbox,
   ListboxLabel,
