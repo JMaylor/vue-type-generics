@@ -15,11 +15,11 @@ const people = ref([
   }
 ])
 
-const person = ref()
+const person = ref<number>()
 </script>
 
 <template>
   <main>
-    <VSelect :items="people" v-model="person" label="Hobbit" value-key="person_id" display-key="name" />
+    <VSelect :items="people" v-model="person" label="Hobbit" value-key="id" display-key="name" />
   </main>
 </template>

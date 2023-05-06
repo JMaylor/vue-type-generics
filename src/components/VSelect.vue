@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="TItem">
+<script setup lang="ts" generic="TValue, TItem">
 import {
   Listbox,
   ListboxLabel,
@@ -8,12 +8,16 @@ import {
 } from '@headlessui/vue'
 import { computed } from 'vue';
 
+type KeyOfType<T, V> = keyof { // [!code ++]
+  [P in keyof T as T[P] extends V ? P : never]: any // [!code ++]
+}
+
 const props = defineProps<{
   /**
    * modelValue to implement a two-way binding
    * see https://vuejs.org/guide/components/v-model.html
    */
-  modelValue: any
+  modelValue: TValue
 
   /**
    * label for the input
@@ -29,7 +33,7 @@ const props = defineProps<{
    * key to use to get the underlying value from a provided object
    * see valueFn
    */
-  valueKey: keyof TItem
+  valueKey: KeyOfType<TItem, TValue>
 
   /**
    * key to use to get the display text from a provided object
