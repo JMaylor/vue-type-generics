@@ -20,6 +20,6 @@ const person = ref<number>()
 
 <template>
   <main>
-    <VSelect :items="people" v-model="person" label="Hobbit" value-key="id" display-key="name" />
+    <VSelect :items="people" v-model="person" label="Character" value-key="id" display-key="name" />
   </main>
 </template>
