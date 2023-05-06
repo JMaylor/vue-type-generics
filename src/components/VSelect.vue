@@ -43,11 +43,11 @@ const props = defineProps<{
 }>()
 
 defineEmits<{
-  (e: 'update:modelValue', value: any): void
+  (e: 'update:modelValue', value: TValue): void
 }>()
 
-const valueFn = (o: any) => o[props.valueKey]
-const displayFn = (o: any) => o[props.displayKey]
+const valueFn = (o: TItem) => o[props.valueKey] as TValue
+const displayFn = (o: TItem) => o[props.displayKey]
 
 /**
  * gets the full selected item, based on the selected value.
