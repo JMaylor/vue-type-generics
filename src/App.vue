@@ -59,7 +59,7 @@ const currency = ref<string>()
         :items="people"
         label="Listbox"
         value-key="id"
-        display-key="name"
+        :display-key="o => `${o.id} - ${o.name}`"
       >
         <template #icon="{item}">
           <div

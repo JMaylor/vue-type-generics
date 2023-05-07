@@ -37,7 +37,7 @@ const props = defineProps<{
    * key to use to get the display text from a provided object
    * see displayFn
    */
-  displayKey: keyof TItem
+  displayKey: keyof TItem | ((item: TItem) => string)
 }>()
 
 defineEmits<{
@@ -45,7 +45,7 @@ defineEmits<{
 }>()
 
 const valueFn = (o: TItem) => o[props.valueKey] as TValue
-const displayFn = (o: TItem) => o[props.displayKey]
+const displayFn = (o: TItem) => typeof props.displayKey === 'function' ? props.displayKey(o) : o[props.displayKey]
 
 /**
  * gets the full selected item, based on the selected value.
