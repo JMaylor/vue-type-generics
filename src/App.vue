@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import VSelect from './components/VSelect.vue'
+import VListbox from './components/VListbox.vue'
 import { AcademicCapIcon } from '@heroicons/vue/20/solid'
 
 const people = ref([
@@ -29,7 +29,7 @@ const person = ref<number>()
 
 <template>
   <main class="p-4">
-    <VSelect
+    <VListbox
       v-model="person"
       :items="people"
       label="Listbox"
@@ -48,6 +48,6 @@ const person = ref<number>()
           class="h-4 w-4"
         />
       </template>
-    </VSelect>
+    </VListbox>
   </main>
 </template>
