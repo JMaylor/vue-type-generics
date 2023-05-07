@@ -29,46 +29,50 @@ const person = ref<number>()
 </script>
 
 <template>
-  <main class="p-4">
-    <VListbox
-      v-model="person"
-      :items="people"
-      label="Listbox"
-      value-key="id"
-      display-key="name"
-    >
-      <template #icon="{item}">
-        <div
-          v-if="'iconBackground' in item"
-          class="h-4 w-4 rounded-full"
-          :class="item.iconBackground"
-        />
-        <component
-          :is="item.icon"
-          v-else
-          class="h-4 w-4"
-        />
-      </template>
-    </VListbox>
-    <VCombobox
-      v-model="person"
-      :items="people"
-      label="Combobox"
-      value-key="id"
-      display-key="name"
-    >
-      <template #icon="{item}">
-        <div
-          v-if="'iconBackground' in item"
-          class="h-4 w-4 rounded-full"
-          :class="item.iconBackground"
-        />
-        <component
-          :is="item.icon"
-          v-else
-          class="h-4 w-4"
-        />
-      </template>
-    </VCombobox>
+  <main class="p-4 gap-4 grid grid-cols-12">
+    <div class="col-span-3">
+      <VListbox
+        v-model="person"
+        :items="people"
+        label="Listbox"
+        value-key="id"
+        display-key="name"
+      >
+        <template #icon="{item}">
+          <div
+            v-if="'iconBackground' in item"
+            class="h-4 w-4 rounded-full"
+            :class="item.iconBackground"
+          />
+          <component
+            :is="item.icon"
+            v-else
+            class="h-4 w-4"
+          />
+        </template>
+      </VListbox>
+    </div>
+    <div class="col-span-3">
+      <VCombobox
+        v-model="person"
+        :items="people"
+        label="Combobox"
+        value-key="id"
+        display-key="name"
+      >
+        <template #icon="{item}">
+          <div
+            v-if="'iconBackground' in item"
+            class="h-4 w-4 rounded-full"
+            :class="item.iconBackground"
+          />
+          <component
+            :is="item.icon"
+            v-else
+            class="h-4 w-4"
+          />
+        </template>
+      </VCombobox>
+    </div>
   </main>
 </template>
