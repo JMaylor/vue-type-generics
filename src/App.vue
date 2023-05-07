@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VSelect from './components/VSelect.vue'
-import { MagnifyingGlassIcon, AcademicCapIcon } from '@heroicons/vue/20/solid'
+import { AcademicCapIcon } from '@heroicons/vue/20/solid'
 
 const people = ref([
   {
