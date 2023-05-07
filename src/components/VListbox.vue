@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem">
+<script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
 import type { KeyOfType } from '@/utils/typeUtils';
 import {
   Listbox,
@@ -55,7 +55,7 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
 
 <template>
   <div class="w-72">
-    <Listbox @update:model-value="$emit('update:modelValue', $event)">
+    <Listbox @update:model-value="$emit('update:modelValue', valueFn($event))">
       <ListboxLabel class="p-2 font-medium">
         {{ label }}
       </ListboxLabel>
@@ -86,7 +86,7 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
               v-for="item in items"
               v-slot="{ active, selected }"
               :key="String(valueFn(item))"
-              :value="valueFn(item)"
+              :value="item"
               as="template"
             >
               <li

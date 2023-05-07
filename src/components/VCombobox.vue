@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem">
+<script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
 import type { KeyOfType } from '@/utils/typeUtils';
 import {
   Combobox,
@@ -70,7 +70,7 @@ const filteredItems = computed(() =>
 </script>
 <template>
   <div class="w-72">
-    <Combobox @update:model-value="$emit('update:modelValue', $event)">
+    <Combobox @update:model-value="$emit('update:modelValue', valueFn($event))">
       <ComboboxLabel class="p-2 font-medium">
         {{ label }}
       </ComboboxLabel>
@@ -113,7 +113,7 @@ const filteredItems = computed(() =>
               :key="String(valueFn(item))"
               v-slot="{ selected, active }"
               as="template"
-              :value="valueFn(item)"
+              :value="item"
             >
               <li
                 class="relative cursor-default select-none py-2 pl-10 pr-4"
