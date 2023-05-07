@@ -6,6 +6,7 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/vue'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
 
 type KeyOfType<T, V> = keyof { // [!code ++]
@@ -60,20 +61,37 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
     <Listbox @update:model-value="$emit('update:model-value', $event)">
       <ListboxLabel>{{ label }}</ListboxLabel>
       <div class="relative">
-        <ListboxButton class="relative w-full border text-left">
+        <ListboxButton
+          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300">
           <span class="block truncate">{{ selectedItem ? displayFn(selectedItem) : 'Please Select...' }}</span>
+          <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+            <ChevronUpDownIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
+          </span>
         </ListboxButton>
-        <ListboxOptions class="absolute max-h-60 z-10 bg-white w-full overflow-auto py-1 border">
-          <ListboxOption v-slot="{ active, selected }" v-for="item in items" :key="String(valueFn(item))"
-            :value="valueFn(item)" as="template">
-            <li class="relative select-none" :class="{
-              'bg-blue-100': active,
-              'bg-blue-50': selected && !active
-            }">
-              <span>{{ displayFn(item) }}</span>
-            </li>
-          </ListboxOption>
-        </ListboxOptions>
+
+        <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
+          leave-to-class="opacity-0">
+          <ListboxOptions
+            class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <ListboxOption v-slot="{ active, selected }" v-for="item in items" :key="String(valueFn(item))"
+              :value="valueFn(item)" as="template">
+
+              <li :class="[
+                active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                'relative cursor-default select-none py-2 pl-10 pr-4',
+              ]">
+                <span :class="[
+                  selected ? 'font-medium' : 'font-normal',
+                  'block truncate',
+                ]">{{ displayFn(item) }}</span>
+                <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                  <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                </span>
+              </li>
+
+            </ListboxOption>
+          </ListboxOptions>
+        </transition>
       </div>
     </Listbox>
   </div>
