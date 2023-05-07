@@ -121,11 +121,24 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
                   'text-gray-900': !active,
                 }"
               >
-                <span
-                  class="block truncate"
-                  :class="{ 'font-medium': selected, 'font-normal': !selected }"
-                >
-                  {{ displayFn(item) }}
+                <span class="inline-flex items-center space-x-2">
+                  <div
+                    v-if="$slots.icon"
+                    class="shrink-0 h-6 w-6 flex items-center justify-center"
+                  >
+                    <slot
+                      name="icon"
+                      :item="item"
+                    />
+                  </div>
+                  <span
+                    :class="[
+                      selected ? 'font-medium' : 'font-normal',
+                      'block truncate',
+                    ]"
+                  >
+                    {{ displayFn(item) }}
+                  </span>
                 </span>
                 <span
                   v-if="selected"
