@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import VListbox from './components/VListbox.vue'
 import { AcademicCapIcon } from '@heroicons/vue/20/solid'
+import VCombobox from './components/VCombobox.vue';
 
 const people = ref([
   {
@@ -49,5 +50,12 @@ const person = ref<number>()
         />
       </template>
     </VListbox>
+    <VCombobox
+      v-model="person"
+      :items="people"
+      label="Combobox"
+      value-key="id"
+      display-key="name"
+    />
   </main>
 </template>
