@@ -23,7 +23,7 @@ const person = ref<number>()
     <VSelect
       v-model="person"
       :items="people"
-      label="Character"
+      label="Listbox"
       value-key="id"
       display-key="name"
     />
