@@ -79,7 +79,7 @@ const filteredItems = computed(() =>
           class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300"
         >
           <ComboboxInput
-            class="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-900 focus:ring-0"
+            class="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-900 focus:ring-0 outline-none"
             :display-value="(item: unknown) => displayFn(getItemFromValue(item as TValue)!)"
             @change="query = $event.target.value"
           />
