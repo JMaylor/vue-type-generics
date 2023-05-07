@@ -1,18 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VSelect from './components/VSelect.vue'
+import { MagnifyingGlassIcon, AcademicCapIcon } from '@heroicons/vue/20/solid'
 
 const people = ref([
   {
     id: 1,
     name: 'Frodo',
-    age: 50
+    age: 50,
+    iconBackground: 'bg-teal-500'
   },
   {
     id: 2,
     name: 'Gandalf',
-    age: 24_000
-  }
+    age: 24_000,
+    icon: AcademicCapIcon
+  },
+  {
+    id: 3,
+    name: 'Samwise',
+    age: 38,
+    iconBackground: 'bg-rose-500'
+  },
 ])
 
 const person = ref<number>()
@@ -26,6 +35,19 @@ const person = ref<number>()
       label="Listbox"
       value-key="id"
       display-key="name"
-    />
+    >
+      <template #icon="{item}">
+        <div
+          v-if="'iconBackground' in item"
+          class="h-4 w-4 rounded-full"
+          :class="item.iconBackground"
+        />
+        <component
+          :is="item.icon"
+          v-else
+          class="h-4 w-4"
+        />
+      </template>
+    </VSelect>
   </main>
 </template>
