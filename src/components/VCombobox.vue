@@ -49,12 +49,6 @@ defineEmits<{
 const valueFn = (o: TItem) => o[props.valueKey] as TValue
 const displayFn = (o: TItem) => String(o[props.displayKey])
 
-/**
- * gets the full selected item, based on the selected value.
- */
-const getItemFromValue = (value: TValue) => props.items.find(i => valueFn(i) === value )
-const selectedItem = computed(() => getItemFromValue(props.modelValue))
-
 const query = ref('')
 
 const filteredItems = computed(() =>
@@ -67,10 +61,15 @@ const filteredItems = computed(() =>
           .includes(query.value.toLowerCase().replace(/\s+/g, ''))
       )
 )
+
+const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.modelValue))
 </script>
 <template>
   <div class="w-72">
-    <Combobox @update:model-value="$emit('update:modelValue', valueFn($event))">
+    <Combobox
+      :model-value="selectedItem"
+      @update:model-value="$emit('update:modelValue', valueFn($event))"
+    >
       <ComboboxLabel class="p-2 font-medium">
         {{ label }}
       </ComboboxLabel>
@@ -79,8 +78,8 @@ const filteredItems = computed(() =>
           class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300"
         >
           <ComboboxInput
-            class="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-900 focus:ring-0 outline-none"
-            :display-value="(item: unknown) => displayFn(getItemFromValue(item as TValue)!)"
+            class="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-900 focus:ring-0 outline-none select-all"
+            :display-value="(v: unknown) => displayFn(v as TItem)"
             @change="query = $event.target.value"
           />
           <ComboboxButton
