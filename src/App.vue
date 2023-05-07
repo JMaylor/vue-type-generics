@@ -19,7 +19,7 @@ const person = ref<number>()
 </script>
 
 <template>
-  <main>
+  <main class="p-4">
     <VSelect
       v-model="person"
       :items="people"
