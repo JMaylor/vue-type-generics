@@ -1,4 +1,5 @@
-<script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem">
+<script setup lang="ts" generic="TValue extends ExtendableType, TItem">
+import type { ExtendableType } from '@/typeUtils';
 import {
   Listbox,
   ListboxLabel,
