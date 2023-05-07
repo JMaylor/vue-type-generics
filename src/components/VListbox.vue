@@ -55,7 +55,10 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
 
 <template>
   <div class="w-full">
-    <Listbox @update:model-value="$emit('update:modelValue', valueFn($event))">
+    <Listbox
+      :model-value="selectedItem"
+      @update:model-value="$emit('update:modelValue', valueFn($event))"
+    >
       <ListboxLabel class="p-2 font-medium">
         {{ label }}
       </ListboxLabel>
