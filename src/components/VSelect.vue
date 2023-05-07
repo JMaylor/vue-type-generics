@@ -1,4 +1,5 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem">
+import type { KeyOfType } from '@/utils/typeUtils';
 import {
   Listbox,
   ListboxLabel,
@@ -8,10 +9,6 @@ import {
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
-
-type KeyOfType<T, V> = keyof { // [!code ++]
-  [P in keyof T as T[P] extends V ? P : never]: any // [!code ++]
-}
 
 const props = defineProps<{
   /**
