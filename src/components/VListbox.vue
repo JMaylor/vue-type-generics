@@ -61,8 +61,17 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
       </ListboxLabel>
       <div class="relative">
         <ListboxButton
-          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
+          class="inline-flex items-center space-x-2 relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
         >
+          <div
+            v-if="selectedItem && $slots.icon"
+            class="shrink-0 h-6 w-6 flex items-center justify-center"
+          >
+            <slot
+              name="icon"
+              :item="selectedItem"
+            />
+          </div>
           <span class="block truncate">
             {{ selectedItem ? displayFn(selectedItem) : 'Please Select...' }}
           </span>

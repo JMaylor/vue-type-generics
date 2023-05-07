@@ -74,12 +74,21 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
       <ComboboxLabel class="p-2 font-medium">
         {{ label }}
       </ComboboxLabel>
-      <div class="relative mt-1">
+      <div class="relative">
         <div
-          class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
+          class="inline-flex py-2 pl-3 items-center space-x-2 relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
         >
+          <div
+            v-if="selectedItem && $slots.icon"
+            class="shrink-0 h-6 w-6 flex items-center justify-center"
+          >
+            <slot
+              name="icon"
+              :item="selectedItem"
+            />
+          </div>
           <ComboboxInput
-            class="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-900 focus:ring-0 outline-none select-all"
+            class="border-none pr-10 text-gray-900 focus:ring-0 outline-none select-all"
             :display-value="(v: unknown) => displayFn(v as TItem)"
             @change="query = $event.target.value"
           />
