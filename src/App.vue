@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import VListbox from './components/VListbox.vue'
 import { AcademicCapIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon } from '@heroicons/vue/20/solid'
 import VCombobox from './components/VCombobox.vue';
+import VRadioGroup from './components/VRadioGroup.vue';
 
 const people = ref([
   {
@@ -49,6 +50,28 @@ const currencies = ref([
   },
 ])
 const currency = ref<string>()
+
+const plans = [
+  {
+    name: 'Startup',
+    ram: '12GB',
+    cpus: '6 CPUs',
+    disk: '160 GB SSD disk',
+  },
+  {
+    name: 'Business',
+    ram: '16GB',
+    cpus: '8 CPUs',
+    disk: '512 GB SSD disk',
+  },
+  {
+    name: 'Enterprise',
+    ram: '32GB',
+    cpus: '12 CPUs',
+    disk: '1024 GB SSD disk',
+  },
+]
+const plan = ref<string>()
 </script>
 
 <template>
@@ -90,6 +113,16 @@ const currency = ref<string>()
           />
         </template>
       </VCombobox>
+    </div>
+    <div class="col-span-3">
+      <VRadioGroup
+        v-model="plan"
+        :items="plans"
+        value-key="name"
+        label="Radio Group"
+        label-key="name"
+        :description-key="o => `${o.ram} / ${o.cpus} / ${o.disk}`"
+      />
     </div>
   </main>
 </template>
