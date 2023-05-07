@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VListbox from './components/VListbox.vue'
-import { AcademicCapIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon } from '@heroicons/vue/20/solid'
+import { AcademicCapIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon, BriefcaseIcon, UserIcon, CreditCardIcon } from '@heroicons/vue/20/solid'
 import VCombobox from './components/VCombobox.vue';
 import VRadioGroup from './components/VRadioGroup.vue';
 
@@ -57,18 +57,21 @@ const plans = [
     ram: '12GB',
     cpus: '6 CPUs',
     disk: '160 GB SSD disk',
+    icon: UserIcon
   },
   {
     name: 'Business',
     ram: '16GB',
     cpus: '8 CPUs',
     disk: '512 GB SSD disk',
+    icon: BriefcaseIcon
   },
   {
     name: 'Enterprise',
     ram: '32GB',
     cpus: '12 CPUs',
     disk: '1024 GB SSD disk',
+    icon: CreditCardIcon
   },
 ]
 const plan = ref<string>()
@@ -122,7 +125,22 @@ const plan = ref<string>()
         label="Radio Group"
         label-key="name"
         :description-key="o => `${o.ram} / ${o.cpus} / ${o.disk}`"
-      />
+      >
+        <template #itemLabel="{item}">
+          <span class="flex">
+            <component
+              :is="item.icon"
+              class="h-5 w-5 mr-4"
+            />
+            {{ item.name }}
+          </span>
+        </template>
+        <template #itemDescription="{item}">
+          <span> {{ item.ram }}/{{ item.cpus }}</span>
+          <span aria-hidden="true"> &middot; </span>
+          <span>{{ item.disk }}</span>
+        </template>
+      </VRadioGroup>
     </div>
   </main>
 </template>

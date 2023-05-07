@@ -91,14 +91,28 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
                   :class="checked ? 'text-white' : 'text-gray-900'"
                   class="font-medium"
                 >
-                  {{ labelFn(item) }}
+                  <template v-if="!$slots.itemLabel">
+                    {{ labelFn(item) }}
+                  </template>
+                  <slot
+                    v-else
+                    name="itemLabel"
+                    :item="item"
+                  />
                 </RadioGroupLabel>
                 <RadioGroupDescription
                   as="span"
                   :class="checked ? 'text-sky-100' : 'text-gray-500'"
                   class="inline"
                 >
-                  {{ descriptionFn(item) }}
+                  <template v-if="!$slots.itemDescription">
+                    {{ descriptionFn(item) }}
+                  </template>
+                  <slot
+                    v-else
+                    name="itemDescription"
+                    :item="item"
+                  />
                 </RadioGroupDescription>
               </div>
             </div>
