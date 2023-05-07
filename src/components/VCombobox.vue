@@ -75,7 +75,7 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
       </ComboboxLabel>
       <div class="relative mt-1">
         <div
-          class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300"
+          class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
         >
           <ComboboxInput
             class="w-full border-none py-2 pl-3 pr-10 leading-5 text-gray-900 focus:ring-0 outline-none select-all"
@@ -117,7 +117,7 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
               <li
                 class="relative cursor-default select-none py-2 pl-10 pr-4"
                 :class="{
-                  'bg-teal-600 text-white': active,
+                  'bg-amber-100 text-amber-900': active,
                   'text-gray-900': !active,
                 }"
               >
@@ -142,8 +142,7 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
                 </span>
                 <span
                   v-if="selected"
-                  class="absolute inset-y-0 left-0 flex items-center pl-3"
-                  :class="{ 'text-white': active, 'text-teal-600': !active }"
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
                 >
                   <CheckIcon
                     class="h-5 w-5"
