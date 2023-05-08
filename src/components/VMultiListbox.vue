@@ -1,5 +1,4 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
-import type { KeyOfType } from '@/utils/typeUtils';
 import {
   Listbox,
   ListboxLabel,
@@ -10,43 +9,16 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
 import VChip from './VChip.vue';
+import type { MultiListboxProps } from '@/types/listboxTypes';
+import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
 
-const props = defineProps<{
-  /**
-   * modelValue to implement a two-way binding
-   * see https://vuejs.org/guide/components/v-model.html
-   */
-  modelValue: TValue[]
-
-  /**
-   * label for the input
-   */
-  label: string
-
-  /**
-   * list of available items
-   */
-  items: TItem[]
-
-  /**
-   * key to use to get the underlying value from a provided object
-   * see valueFn
-   */
-  valueKey: KeyOfType<TItem, TValue>
-
-  /**
-   * key to use to get the display text from a provided object
-   * see displayFn
-   */
-  displayKey: keyof TItem | ((item: TItem) => string)
-}>()
+const props = defineProps<MultiListboxProps<TValue, TItem>>()
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: TValue[]): void
 }>()
 
-const valueFn = (o: TItem) => o[props.valueKey] as TValue
-const displayFn = (o: TItem) => typeof props.displayKey === 'function' ? props.displayKey(o) : o[props.displayKey]
+const { valueFn, displayFn } = useValueAndDisplayFns(props)
 
 /**
  * gets the full selected item, based on the selected value.

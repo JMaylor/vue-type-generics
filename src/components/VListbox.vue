@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
-import type { KeyOfType } from '@/utils/typeUtils';
+import type { SingleListboxProps } from '@/types/listboxTypes';
 import {
   Listbox,
   ListboxLabel,
@@ -9,50 +9,15 @@ import {
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
+import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
 
-const props = defineProps<{
-  /**
-   * modelValue to implement a two-way binding
-   * see https://vuejs.org/guide/components/v-model.html
-   */
-  modelValue: TValue
-
-  /**
-   * label for the input
-   */
-  label: string
-
-  /**
-   * list of available items
-   */
-  items: TItem[]
-
-  /**
-   * key to use to get the underlying value from a provided object
-   * see valueFn
-   */
-  valueKey: KeyOfType<TItem, TValue>
-
-  /**
-   * key to use to get the display text from a provided object
-   * see displayFn
-   */
-  displayKey: keyof TItem | ((item: TItem) => string)
-
-  /**
-   * toggles a clear button that sets the modelValue to null
-   * note that this should only be flagged if the TValue type can possibly be null
-   * i.e. `number | null` rather than just `number`.
-   */
-  clearable?: boolean
-}>()
+const props = defineProps<SingleListboxProps<TValue, TItem>>()
 
 defineEmits<{
   (e: 'update:modelValue', value: TValue): void
 }>()
 
-const valueFn = (o: TItem) => o[props.valueKey] as TValue
-const displayFn = (o: TItem) => typeof props.displayKey === 'function' ? props.displayKey(o) : o[props.displayKey]
+const { valueFn, displayFn } = useValueAndDisplayFns(props)
 
 /**
  * gets the full selected item, based on the selected value.

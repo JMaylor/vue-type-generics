@@ -1,4 +1,5 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
+import type { ComboboxProps } from '@/types/listboxTypes';
 import type { KeyOfType } from '@/utils/typeUtils';
 import {
   Combobox,
@@ -11,43 +12,15 @@ import {
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { ref, computed } from 'vue';
+import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
 
-const props = defineProps<{
-  /**
-   * modelValue to implement a two-way binding
-   * see https://vuejs.org/guide/components/v-model.html
-   */
-  modelValue: TValue
-
-  /**
-   * label for the input
-   */
-  label: string
-
-  /**
-   * list of available items
-   */
-  items: TItem[]
-
-  /**
-   * key to use to get the underlying value from a provided object
-   * see valueFn
-   */
-  valueKey: KeyOfType<TItem, TValue>
-
-  /**
-   * key to use to get the display text from a provided object
-   * see displayFn
-   */
-  displayKey: keyof TItem | ((item: TItem) => string)
-}>()
+const props = defineProps<ComboboxProps<TValue, TItem>>()
 
 defineEmits<{
   (e: 'update:modelValue', value: TValue): void
 }>()
 
-const valueFn = (o: TItem) => o[props.valueKey] as TValue
-const displayFn = (o: TItem) => typeof props.displayKey === 'function' ? props.displayKey(o) : String(o[props.displayKey])
+const { valueFn, displayFn } = useValueAndDisplayFns(props)
 
 const query = ref('')
 

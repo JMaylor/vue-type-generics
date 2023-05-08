@@ -1,5 +1,4 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
-import type { KeyOfType } from '@/utils/typeUtils';
 import {
   RadioGroup,
   RadioGroupLabel,
@@ -8,50 +7,17 @@ import {
 } from '@headlessui/vue'
 import { computed } from 'vue';
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
+import type { RadioGroupProps } from '@/types/listboxTypes';
 
-const props = defineProps<{
-  /**
-   * modelValue to implement a two-way binding
-   * see https://vuejs.org/guide/components/v-model.html
-   */
-  modelValue: TValue
-
-  /**
-   * label for the input
-   */
-  label: string
-
-  /**
-   * list of available items
-   */
-  items: TItem[]
-
-  /**
-   * key to use to get the underlying value from a provided object
-   * see valueFn
-   */
-  valueKey: KeyOfType<TItem, TValue>
-
-  /**
-   * key to use to get the main label text from a provided object
-   * see labelFn
-   */
-  labelKey: keyof TItem
-
-  /**
-   * key to use to get the description text from a provided object
-   * see descriptionFn
-   */
-  descriptionKey: keyof TItem | ((item: TItem) => string)
-}>()
+const props = defineProps<RadioGroupProps<TValue, TItem>>()
 
 defineEmits<{
   (e: 'update:modelValue', value: TValue): void
 }>()
 
 const valueFn = (o: TItem) => o[props.valueKey] as TValue
-const labelFn = (o: TItem) => o[props.labelKey]
-const descriptionFn = (o: TItem) => typeof props.descriptionKey === 'function' ? props.descriptionKey(o) : o[props.descriptionKey]
+const labelFn = (o: TItem) => String(o[props.labelKey])
+const descriptionFn = (o: TItem) => typeof props.descriptionKey === 'function' ? props.descriptionKey(o) : String(o[props.descriptionKey])
 
 /**
  * gets the full selected item, based on the selected value.
