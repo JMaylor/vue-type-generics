@@ -12,6 +12,7 @@ defineEmits<{
       class="ml-1"
       type="button"
       @click.stop="$emit('delete')"
+      @keydown.enter.prevent.stop="$emit('delete')"
     >
       <XMarkIcon
         class="h-5 w-5"

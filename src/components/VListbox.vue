@@ -53,16 +53,6 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
           <span class="block truncate">
             {{ selectedItem ? displayFn(selectedItem) : 'Please Select...' }}
           </span>
-          <button
-            v-if="clearable && modelValue"
-            type="button"
-            class="absolute inset-y-2 h-6 right-8 flex items-center"
-            @click.stop="$emit('update:modelValue', null)"
-          >
-            <XMarkIcon
-              class="h-5 w-5 text-gray-400"
-            />
-          </button>
           <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
               class="h-5 w-5 text-gray-400"
@@ -70,6 +60,17 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
             />
           </span>
         </ListboxButton>
+        
+        <button
+          v-if="clearable && modelValue"
+          type="button"
+          class="absolute inset-y-2 z-10 h-6 right-8 flex items-center"
+          @click.stop="$emit('update:modelValue', null)"
+        >
+          <XMarkIcon
+            class="h-5 w-5 text-gray-400"
+          />
+        </button>
 
         <transition 
           leave-active-class="transition duration-100 ease-in" 
