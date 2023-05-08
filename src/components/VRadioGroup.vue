@@ -8,6 +8,7 @@ import {
 import { computed } from 'vue';
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
 import type { RadioGroupProps } from '@/types/listboxTypes';
+import VLabel from './VLabel.vue';
 
 const props = defineProps<RadioGroupProps<TValue, TItem>>()
 
@@ -29,9 +30,11 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
     :model-value="selectedItem"
     @update:model-value="$emit('update:modelValue', valueFn($event))"
   >
-    <RadioGroupLabel class="p-2 font-medium">
+    <VLabel
+      :component="RadioGroupLabel"
+    >
       {{ label }}
-    </RadioGroupLabel>
+    </VLabel>
     <div class="space-y-2">
       <RadioGroupOption
         v-for="item in items"

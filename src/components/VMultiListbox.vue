@@ -11,6 +11,7 @@ import { computed } from 'vue';
 import VChip from './VChip.vue';
 import type { MultiListboxProps } from '@/types/listboxTypes';
 import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
+import VLabel from './VLabel.vue';
 
 const props = defineProps<MultiListboxProps<TValue, TItem>>()
 
@@ -37,9 +38,11 @@ function onUpdate(e: TItem[]) {
       :model-value="selectedItems"
       @update:model-value="onUpdate"
     >
-      <ListboxLabel class="p-2 font-medium">
+      <VLabel
+        :component="ListboxLabel"
+      >
         {{ label }}
-      </ListboxLabel>
+      </VLabel>
       <div class="relative">
         <ListboxButton
           class="inline-flex items-center space-x-2 relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"

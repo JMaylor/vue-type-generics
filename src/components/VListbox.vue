@@ -10,6 +10,7 @@ import {
 import { CheckIcon, ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
 import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
+import VLabel from './VLabel.vue';
 
 const props = defineProps<SingleListboxProps<TValue, TItem>>()
 
@@ -31,9 +32,11 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
       :model-value="selectedItem"
       @update:model-value="$emit('update:modelValue', valueFn($event))"
     >
-      <ListboxLabel class="p-2 font-medium">
+      <VLabel
+        :component="ListboxLabel"
+      >
         {{ label }}
-      </ListboxLabel>
+      </VLabel>
       <div class="relative">
         <ListboxButton
           class="inline-flex items-center space-x-2 relative w-full cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
