@@ -16,7 +16,7 @@ defineEmits<{
   (e: 'update:modelValue', value: TValue): void
 }>()
 
-const valueFn = (o: TItem) => o[props.valueKey] as TValue
+const valueFn = (o: TItem) => typeof props.valueKey === 'function' ? props.valueKey(o) : o[props.valueKey] as TValue
 const labelFn = (o: TItem) => String(o[props.labelKey])
 const descriptionFn = (o: TItem) => typeof props.descriptionKey === 'function' ? props.descriptionKey(o) : String(o[props.descriptionKey])
 
