@@ -173,7 +173,7 @@ const roles = ref<number[]>([])
         v-model="currency"
         :items="currencies"
         label="Combobox"
-        value-key="iso_code"
+        :value-key="o => `${o.iso_code} - ${o.name}`"
         display-key="name"
       >
         <template #icon="{item}">

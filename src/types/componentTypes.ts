@@ -15,7 +15,7 @@ export interface BaseHeadlessUiProps<TValue, TItem> {
    * key to use to get the underlying value from a provided object
    * see valueFn
    */
-  valueKey: KeyOfType<TItem, TValue>
+  valueKey: KeyOfType<TItem, TValue> | ((item: TItem) => TValue)
 
   /**
    * key to use to get the display text from a provided object
