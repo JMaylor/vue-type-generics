@@ -7,7 +7,7 @@ import {
 import { ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
 import VChip from './VChip.vue';
-import type { MultiListboxProps } from '@/types/listboxTypes';
+import type { MultiListboxProps } from '@/types/componentTypes';
 import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
 import VLabel from './VLabel.vue';
 import VListboxOptions from './VListboxOptions.vue';

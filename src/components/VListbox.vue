@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
-import type { SingleListboxProps } from '@/types/listboxTypes';
+import type { SingleListboxProps } from '@/types/componentTypes';
 import {
   Listbox,
   ListboxLabel,

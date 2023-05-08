@@ -1,4 +1,4 @@
-import type { BaseHeadlessUiProps } from "@/types/listboxTypes"
+import type { BaseHeadlessUiProps } from "@/types/componentTypes"
 
 export function useValueAndDisplayFns<TValue, TItem>(props: BaseHeadlessUiProps<TValue, TItem>) {
   return {

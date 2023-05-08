@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
-import type { BaseHeadlessUiProps } from '@/types/listboxTypes';
+import type { BaseHeadlessUiProps } from '@/types/componentTypes';
 import {
   ListboxOptions,
   ListboxOption

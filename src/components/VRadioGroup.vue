@@ -7,7 +7,7 @@ import {
 } from '@headlessui/vue'
 import { computed } from 'vue';
 import { CheckCircleIcon } from '@heroicons/vue/24/outline'
-import type { RadioGroupProps } from '@/types/listboxTypes';
+import type { RadioGroupProps } from '@/types/componentTypes';
 import VLabel from './VLabel.vue';
 
 const props = defineProps<RadioGroupProps<TValue, TItem>>()
