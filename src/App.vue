@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VListbox from './components/VListbox.vue'
-import { AcademicCapIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon, BriefcaseIcon, UserIcon, CreditCardIcon } from '@heroicons/vue/20/solid'
+import { AcademicCapIcon, UserGroupIcon, BuildingOffice2Icon, PhoneIcon, PresentationChartBarIcon, ComputerDesktopIcon, CodeBracketIcon, QuestionMarkCircleIcon, BoltIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon, BriefcaseIcon, UserIcon, CreditCardIcon } from '@heroicons/vue/20/solid'
 import VCombobox from './components/VCombobox.vue';
 import VRadioGroup from './components/VRadioGroup.vue';
+import VMultiListbox from './components/VMultiListbox.vue';
 
 const people = ref([
   {
@@ -75,6 +76,55 @@ const plans = [
   },
 ]
 const plan = ref<string>()
+
+const availableRoles = [
+  {
+    role_id: 1,
+    role_name: 'Finance',
+    icon: CreditCardIcon
+  },
+  {
+    role_id: 2,
+    role_name: 'HR',
+    icon: UserGroupIcon,
+  },
+  {
+    role_id: 3,
+    role_name: 'Office Management',
+    icon: BuildingOffice2Icon,
+  },
+  {
+    role_id: 4,
+    role_name: 'Sales',
+    icon: PhoneIcon,
+  },
+  {
+    role_id: 5,
+    role_name: 'Marketing',
+    icon: PresentationChartBarIcon,
+  },
+  {
+    role_id: 6,
+    role_name: 'IT',
+    icon: ComputerDesktopIcon,
+  },
+  {
+    role_id: 7,
+    role_name: 'Development',
+    icon: CodeBracketIcon,
+  },
+  {
+    role_id: 8,
+    role_name: 'Support',
+    icon: QuestionMarkCircleIcon,
+  },
+  {
+    role_id: 9,
+    role_name: 'Management',
+    icon: BoltIcon,
+  }
+]
+const roles = ref<number[]>([])
 </script>
 
 <template>
@@ -100,6 +150,22 @@ const plan = ref<string>()
           />
         </template>
       </VListbox>
+    </div>
+    <div class="col-span-3">
+      <VMultiListbox
+        v-model="roles"
+        :items="availableRoles"
+        label="Multi Listbox"
+        value-key="role_id"
+        display-key="role_name"
+      >
+        <template #icon="{item}">
+          <component
+            :is="item.icon"
+            class="h-5 w-5"
+          />
+        </template>
+      </VMultiListbox>
     </div>
     <div class="col-span-3">
       <VCombobox
