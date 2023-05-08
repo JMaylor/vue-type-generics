@@ -129,7 +129,7 @@ const roles = ref<number[]>([])
 
 <template>
   <main class="p-4 gap-4 grid grid-cols-12">
-    <div class="col-span-3">
+    <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
       <VListbox
         v-model="person"
         clearable
@@ -152,7 +152,7 @@ const roles = ref<number[]>([])
         </template>
       </VListbox>
     </div>
-    <div class="col-span-3">
+    <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
       <VMultiListbox
         v-model="roles"
         :items="availableRoles"
@@ -168,7 +168,7 @@ const roles = ref<number[]>([])
         </template>
       </VMultiListbox>
     </div>
-    <div class="col-span-3">
+    <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
       <VCombobox
         v-model="currency"
         :items="currencies"
@@ -184,7 +184,7 @@ const roles = ref<number[]>([])
         </template>
       </VCombobox>
     </div>
-    <div class="col-span-3">
+    <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
       <VRadioGroup
         v-model="plan"
         :items="plans"
