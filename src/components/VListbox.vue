@@ -7,7 +7,7 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon, ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -38,6 +38,13 @@ const props = defineProps<{
    * see displayFn
    */
   displayKey: keyof TItem | ((item: TItem) => string)
+
+  /**
+   * toggles a clear button that sets the modelValue to null
+   * note that this should only be flagged if the TValue type can possibly be null
+   * i.e. `number | null` rather than just `number`.
+   */
+  clearable?: boolean
 }>()
 
 defineEmits<{
@@ -64,7 +71,11 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
       </ListboxLabel>
       <div class="relative">
         <ListboxButton
-          class="inline-flex items-center space-x-2 relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
+          class="inline-flex items-center space-x-2 relative w-full cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
+          :class="{
+            'pr-10': !clearable,
+            'pr-[3.5rem]': clearable
+          }"
         >
           <div
             v-if="selectedItem && $slots.icon"
@@ -78,6 +89,16 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
           <span class="block truncate">
             {{ selectedItem ? displayFn(selectedItem) : 'Please Select...' }}
           </span>
+          <button
+            v-if="clearable && modelValue"
+            type="button"
+            class="absolute inset-y-2 h-6 right-8 flex items-center"
+            @click.stop="$emit('update:modelValue', null)"
+          >
+            <XMarkIcon
+              class="h-5 w-5 text-gray-400"
+            />
+          </button>
           <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <ChevronUpDownIcon
               class="h-5 w-5 text-gray-400"

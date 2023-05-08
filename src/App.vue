@@ -132,6 +132,7 @@ const roles = ref<number[]>([])
     <div class="col-span-3">
       <VListbox
         v-model="person"
+        clearable
         :items="people"
         label="Listbox"
         value-key="id"
