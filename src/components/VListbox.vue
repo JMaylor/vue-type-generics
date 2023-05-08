@@ -19,9 +19,6 @@ defineEmits<{
 
 const { valueFn, displayFn } = useValueAndDisplayFns(props)
 
-/**
- * gets the full selected item, based on the selected value.
- */
 const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.modelValue))
 </script>
 

@@ -1,6 +1,5 @@
 <script setup lang="ts" generic="TValue extends string | number | boolean | object | null | undefined, TItem extends object">
 import type { ComboboxProps } from '@/types/listboxTypes';
-import type { KeyOfType } from '@/utils/typeUtils';
 import {
   Combobox,
   ComboboxLabel,

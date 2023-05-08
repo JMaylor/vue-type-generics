@@ -3,10 +3,8 @@ import {
   Listbox,
   ListboxLabel,
   ListboxButton,
-  ListboxOptions,
-  ListboxOption,
 } from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { computed } from 'vue';
 import VChip from './VChip.vue';
 import type { MultiListboxProps } from '@/types/listboxTypes';
@@ -22,9 +20,6 @@ const emit = defineEmits<{
 
 const { valueFn, displayFn } = useValueAndDisplayFns(props)
 
-/**
- * gets the full selected item, based on the selected value.
- */
 const selectedItems = computed(() => props.items.filter(i => props.modelValue.includes(valueFn(i))))
 
 function onUpdate(e: TItem[]) {

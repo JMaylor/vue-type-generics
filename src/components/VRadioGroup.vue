@@ -20,9 +20,6 @@ const valueFn = (o: TItem) => o[props.valueKey] as TValue
 const labelFn = (o: TItem) => String(o[props.labelKey])
 const descriptionFn = (o: TItem) => typeof props.descriptionKey === 'function' ? props.descriptionKey(o) : String(o[props.descriptionKey])
 
-/**
- * gets the full selected item, based on the selected value.
- */
 const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.modelValue))
 </script>
 <template>
