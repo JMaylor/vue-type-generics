@@ -13,6 +13,13 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 import { ref, computed } from 'vue';
 import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
 import VLabel from './VLabel.vue';
+import {
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  shift,
+} from '@floating-ui/vue';
 
 const props = defineProps<ComboboxProps<TValue, TItem>>()
 
@@ -36,6 +43,14 @@ const filteredItems = computed(() =>
 )
 
 const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.modelValue))
+
+const trigger = ref()
+const floating = ref()
+const floatingEl = computed(() => floating.value?.$el)
+const { floatingStyles } = useFloating(trigger, floatingEl, {
+  middleware: [offset(4), flip(), shift()],
+  whileElementsMounted: autoUpdate,
+});
 </script>
 
 <template>
@@ -51,6 +66,7 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
       </VLabel>
       <div class="relative">
         <div
+          ref="trigger"
           class="inline-flex py-2 pl-3 items-center space-x-2 relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
         >
           <div
@@ -83,7 +99,9 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
           @after-leave="query = ''"
         >
           <ComboboxOptions
-            class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            ref="floating"
+            :style="floatingStyles"
+            class="absolute z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           >
             <div
               v-if="filteredItems.length === 0 && query !== ''"
