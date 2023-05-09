@@ -6,10 +6,17 @@ import {
   ListboxButton,
 } from '@headlessui/vue'
 import { ChevronUpDownIcon, XMarkIcon } from '@heroicons/vue/20/solid'
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useValueAndDisplayFns } from '@/composables/useValueAndDisplayFns'
 import VLabel from './VLabel.vue';
 import VListboxOptions from './VListboxOptions.vue';
+import {
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  shift,
+} from '@floating-ui/vue';
 
 const props = defineProps<SingleListboxProps<TValue, TItem>>()
 
@@ -20,6 +27,15 @@ defineEmits<{
 const { valueFn, displayFn } = useValueAndDisplayFns(props)
 
 const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.modelValue))
+
+const trigger = ref()
+const triggerEl = computed(() => trigger.value?.$el)
+const floating = ref()
+const floatingEl = computed(() => floating.value?.root.$el)
+const { floatingStyles } = useFloating(triggerEl, floatingEl, {
+  middleware: [offset(4), flip(), shift()],
+  whileElementsMounted: autoUpdate,
+});
 </script>
 
 <template>
@@ -35,6 +51,7 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
       </VLabel>
       <div class="relative">
         <ListboxButton
+          ref="trigger"
           class="inline-flex items-center space-x-2 relative w-full cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
           :class="{
             'pr-10': !clearable,
@@ -78,6 +95,8 @@ const selectedItem = computed(() => props.items.find(i => valueFn(i) === props.m
           leave-to-class="opacity-0"
         >
           <VListboxOptions
+            ref="floating"
+            :style="floatingStyles"
             :items="items"
             :value-fn="valueFn"
             :display-fn="displayFn"

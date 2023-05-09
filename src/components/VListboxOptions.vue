@@ -4,17 +4,21 @@ import {
   ListboxOptions,
   ListboxOption
 } from '@headlessui/vue'
+import { ref } from 'vue';
 
 defineProps<Pick<BaseHeadlessUiProps<TValue, TItem>, 'items'> & {
   valueFn: (o: TItem) => TValue
   displayFn: (o: TItem) => string
 }>()
 
+const root = ref()
+defineExpose({root})
 </script>
 
 <template>
   <ListboxOptions
-    class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+    ref="root"
+    class="absolute z-10 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
   >
     <ListboxOption
       v-for="item in items"
