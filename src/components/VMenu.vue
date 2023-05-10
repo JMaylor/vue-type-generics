@@ -44,7 +44,7 @@ const packedMenuItems = computed(() => {
     <div>
       <MenuButton
         ref="trigger"
-        class="text-sm inline-flex w-full justify-center items-center rounded-md bg-white pl-3 pr-2 py-2 hover:bg-amber-100 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
+        class="text-sm shadow-md inline-flex w-full justify-center items-center rounded-md bg-white pl-3 pr-2 py-2 hover:bg-amber-100 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
       >
         <Cog6ToothIcon
           class="mr-2 h-5 w-5 text-violet-400"
