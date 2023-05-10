@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import VListbox from './components/VListbox.vue'
 import { AcademicCapIcon, UserGroupIcon, BuildingOffice2Icon, PhoneIcon, PresentationChartBarIcon, ComputerDesktopIcon, CodeBracketIcon, QuestionMarkCircleIcon, BoltIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon, BriefcaseIcon, UserIcon, CreditCardIcon, TrashIcon, HomeIcon, ArrowTopRightOnSquareIcon, ArchiveBoxIcon, PencilIcon, DocumentDuplicateIcon, ChevronDownIcon } from '@heroicons/vue/20/solid'
 import VCombobox from './components/VCombobox.vue';
+import VDisclosure from './components/VDisclosure.vue';
 import VRadioGroup from './components/VRadioGroup.vue';
 import VMultiListbox from './components/VMultiListbox.vue';
 import type { VMenuItemProp } from './types/componentTypes';
@@ -176,6 +177,21 @@ const menuItems: Array<Array<VMenuItemProp>> = [
     },
   ]
 ]
+
+const disclosureItems = [
+  {
+    title: 'What is your favorite color?',
+    content: 'I\'ve thought about it long and hard, and it\'s got to be green.'
+  },
+  {
+    title: 'Can you show me some multi-paragraph content?',
+    content: [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.',
+      'Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero.',
+      'Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra auctor lobortis.'
+    ]
+  },
+]
 </script>
 
 <template>
@@ -264,6 +280,15 @@ const menuItems: Array<Array<VMenuItemProp>> = [
       </VRadioGroup>
     </div>
     <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
+      <p class="font-medium px-2">
+        Disclosure
+      </p>
+      <VDisclosure :items="disclosureItems" />
+    </div>
+    <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
+      <p class="font-medium px-2">
+        Menu
+      </p>
       <VMenu
         :items="menuItems"
         title="Menu"
