@@ -1,4 +1,6 @@
 import type { KeyOfType } from "@/utils/typeUtils"
+import type { Component } from "vue"
+import type { RouteLocationRaw } from "vue-router"
 
 export interface BaseHeadlessUiProps<TValue, TItem> {
   /**
@@ -73,4 +75,44 @@ export interface RadioGroupProps<TValue, TItem> extends Omit<BaseHeadlessUiProps
    * see descriptionFn
    */
   descriptionKey: keyof TItem | ((item: TItem) => string)
+}
+
+export interface VMenuItemProp  {
+  /**
+   * main text for the menu item
+   */
+  text: string
+
+  /**
+   * icon component to display to the left of the text
+   */
+  icon: Component
+
+  /**
+   * whether the menu item is disabled
+   */
+  disabled?: boolean
+
+  /**
+   * function to call when the menu item is clicked
+   * @example () => alert('hello world')
+   */
+  action?: () => void
+
+  /**
+   * internal link to navigate to when the menu item is clicked
+   * @example '/about'
+   */
+  to?: RouteLocationRaw
+
+  /**
+   * external link to navigate to when the menu item is clicked
+   * @example https://www.google.com
+   */
+  href?: string
+
+  /**
+   * whether or not to open link in new tab
+   */
+  newTab?: boolean
 }

@@ -14,7 +14,8 @@
     "@floating-ui/vue": "^1.0.0",
     "@headlessui/vue": "^1.7.13",
     "@heroicons/vue": "^2.0.17",
-    "vue": "^3.3.0-beta.5"
+    "vue": "^3.3.0-beta.5",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
