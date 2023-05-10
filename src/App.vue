@@ -195,8 +195,9 @@ const disclosureItems = [
 </script>
 
 <template>
-  <header class="px-6 py-3">
+  <header class="px-6 py-3 border-b border-rose-600 flex justify-between font-medium">
     <RouterView />
+    <span class="font-normal">You can use the Menu to navigate between the Home and About page.</span>
   </header>
   <main class="p-4 gap-4 grid grid-cols-12">
     <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
