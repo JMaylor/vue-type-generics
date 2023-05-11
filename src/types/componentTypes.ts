@@ -86,7 +86,7 @@ export interface VMenuItemProp  {
   /**
    * icon component to display to the left of the text
    */
-  icon: Component
+  icon: Component | string
 
   /**
    * whether the menu item is disabled

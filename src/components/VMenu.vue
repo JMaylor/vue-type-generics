@@ -1,6 +1,6 @@
 <script lang='ts' setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { ArrowTopRightOnSquareIcon, ChevronDownIcon, Cog6ToothIcon } from '@heroicons/vue/20/solid'
+import { ArrowTopRightOnSquareIcon, ChevronDownIcon } from '@heroicons/vue/20/solid'
 import {
   useFloating,
   autoUpdate,
@@ -39,20 +39,20 @@ const packedMenuItems = computed(() => {
 <template>
   <Menu
     as="div"
-    class="relative inline-block text-left"
+    class="relative inline-block text-left dark:text-white text-sm"
   >
     <div>
       <MenuButton
         ref="trigger"
-        class="text-sm shadow-md inline-flex w-full justify-center items-center rounded-md bg-white pl-3 pr-2 py-2 hover:bg-amber-100 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
+        class="shadow-md inline-flex w-full justify-center items-center rounded-md bg-white dark:bg-gray-900 pl-3 pr-2 py-2 hover:bg-amber-100 dark:hover:bg-amber-900 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white dark:focus-visible:ring-black focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:focus-visible:ring-offset-orange-600"
       >
-        <Cog6ToothIcon
+        <component
+          :is="icon"
           class="mr-2 h-5 w-5 text-violet-400"
           aria-hidden="true"
         />
         {{ title }}
-        <component
-          :is="icon"
+        <ChevronDownIcon
           class="ml-2 h-5 w-5"
           aria-hidden="true"
         />
@@ -67,7 +67,7 @@ const packedMenuItems = computed(() => {
       <MenuItems
         ref="floating"
         :style="floatingStyles"
-        class="absolute right-0 w-fit divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+        class="absolute right-0 w-fit divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-900 shadow-lg ring-1 ring-black dark:ring-gray-500 ring-opacity-5 focus:outline-none"
       >
         <div
           v-for="(group, index) in packedMenuItems"
@@ -85,21 +85,32 @@ const packedMenuItems = computed(() => {
               >
                 <button
                   type="button"
-                  class="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                  class="group flex w-full items-center rounded-md px-2 py-2"
                   :class="{
                     'bg-violet-500 text-white': active,
-                    'text-gray-900': !active && !menuItem.disabled,
-                    'text-gray-400 cursor-not-allowed': menuItem.disabled,
+                    'text-gray-900 dark:text-gray-200': !active && !menuItem.disabled,
+                    'text-gray-400 dark:text-gray-600 cursor-not-allowed': menuItem.disabled,
                   }"
                   @click="menuItem.action"
                 >
+                  <span
+                    v-if="typeof menuItem.icon === 'string'"
+                    :data-icon="menuItem.icon"
+                    class="iconify mr-2 h-5 w-5"
+                    :class="{
+                      'text-violet-200': active,
+                      'text-violet-400 dark:text-violet-500': !active && !menuItem.disabled,
+                      'text-gray-300 dark:text-gray-600': menuItem.disabled,
+                    }"
+                  />
                   <component
                     :is="menuItem.icon"
+                    v-else
                     class="mr-2 h-5 w-5"
                     :class="{
                       'text-violet-200': active,
-                      'text-violet-400': !active && !menuItem.disabled,
-                      'text-gray-300': menuItem.disabled,
+                      'text-violet-400 dark:text-violet-500': !active && !menuItem.disabled,
+                      'text-gray-300 dark:text-gray-600': menuItem.disabled,
                     }"
                     aria-hidden="true"
                   />
@@ -114,21 +125,32 @@ const packedMenuItems = computed(() => {
                 :disabled="menuItem.disabled"
               >
                 <a
-                  class="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                  class="group flex w-full items-center rounded-md px-2 py-2"
                   :class="{
                     'bg-violet-500 text-white cursor-pointer': active,
-                    'text-gray-900 cursor-pointer': !active && !menuItem.disabled,
-                    'text-gray-400 cursor-not-allowed': menuItem.disabled,
+                    'text-gray-900 dark:text-gray-200': !active && !menuItem.disabled,
+                    'text-gray-400 dark:text-gray-600 cursor-not-allowed': menuItem.disabled,
                   }"
                   @click="() => { $router.push(menuItem.to!); close() }"
                 >
+                  <span
+                    v-if="typeof menuItem.icon === 'string'"
+                    :data-icon="menuItem.icon"
+                    class="iconify mr-2 h-5 w-5"
+                    :class="{
+                      'text-violet-200': active,
+                      'text-violet-400 dark:text-violet-500': !active && !menuItem.disabled,
+                      'text-gray-300 dark:text-gray-600': menuItem.disabled,
+                    }"
+                  />
                   <component
                     :is="menuItem.icon"
+                    v-else
                     class="mr-2 h-5 w-5"
                     :class="{
                       'text-violet-200': active,
-                      'text-violet-400': !active && !menuItem.disabled,
-                      'text-gray-300': menuItem.disabled,
+                      'text-violet-400 dark:text-violet-500': !active && !menuItem.disabled,
+                      'text-gray-300 dark:text-gray-600': menuItem.disabled,
                     }"
                     aria-hidden="true"
                   />
@@ -143,23 +165,34 @@ const packedMenuItems = computed(() => {
                 :disabled="menuItem.disabled"
               >
                 <a
-                  class="group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                  class="group flex w-full items-center rounded-md px-2 py-2"
                   :class="{
                     'bg-violet-500 text-white cursor-pointer': active,
-                    'text-gray-900 cursor-pointer': !active && !menuItem.disabled,
-                    'text-gray-400 cursor-not-allowed': menuItem.disabled,
+                    'text-gray-900 dark:text-gray-200': !active && !menuItem.disabled,
+                    'text-gray-400 dark:text-gray-600 cursor-not-allowed': menuItem.disabled,
                   }"
                   :href="menuItem.href"
                   :target="menuItem.newTab ? '_target' : '_self'"
                   @click="close"
                 >
+                  <span
+                    v-if="typeof menuItem.icon === 'string'"
+                    :data-icon="menuItem.icon"
+                    class="iconify mr-2 h-5 w-5"
+                    :class="{
+                      'text-violet-200': active,
+                      'text-violet-400 dark:text-violet-500': !active && !menuItem.disabled,
+                      'text-gray-300 dark:text-gray-600': menuItem.disabled,
+                    }"
+                  />
                   <component
                     :is="menuItem.icon"
+                    v-else
                     class="mr-2 h-5 w-5"
                     :class="{
                       'text-violet-200': active,
-                      'text-violet-400': !active && !menuItem.disabled,
-                      'text-gray-300': menuItem.disabled,
+                      'text-violet-400 dark:text-violet-500': !active && !menuItem.disabled,
+                      'text-gray-300 dark:text-gray-600': menuItem.disabled,
                     }"
                     aria-hidden="true"
                   />
@@ -168,8 +201,8 @@ const packedMenuItems = computed(() => {
                     v-if="!menuItem.disabled"
                     class="ml-2 h-5 w-5"
                     :class="{
-                      'text-blue-200': active,
-                      'text-blue-400': !active,
+                      'text-blue-200 dark:text-blue-700': active,
+                      'text-blue-400 dark:text-blue-500': !active,
                     }"
                   />
                 </a>

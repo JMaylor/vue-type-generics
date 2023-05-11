@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VListbox from './components/VListbox.vue'
-import { AcademicCapIcon, UserGroupIcon, BuildingOffice2Icon, PhoneIcon, PresentationChartBarIcon, ComputerDesktopIcon, CodeBracketIcon, QuestionMarkCircleIcon, BoltIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon, BriefcaseIcon, UserIcon, CreditCardIcon, TrashIcon, HomeIcon, ArrowTopRightOnSquareIcon, ArchiveBoxIcon, PencilIcon, DocumentDuplicateIcon, ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { AcademicCapIcon, UserGroupIcon, BuildingOffice2Icon, PhoneIcon, PresentationChartBarIcon, ComputerDesktopIcon, CodeBracketIcon, QuestionMarkCircleIcon, BoltIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon, BriefcaseIcon, UserIcon, CreditCardIcon, Cog6ToothIcon } from '@heroicons/vue/20/solid'
 import VCombobox from './components/VCombobox.vue';
 import VDisclosure from './components/VDisclosure.vue';
 import VRadioGroup from './components/VRadioGroup.vue';
 import VMultiListbox from './components/VMultiListbox.vue';
-import type { VMenuItemProp } from './types/componentTypes';
 import VMenu from './components/VMenu.vue';
+
+import menuItems from '@resources/menuItems'
 
 const people = ref([
   {
@@ -129,55 +130,6 @@ const availableRoles = [
 ]
 const roles = ref<number[]>([])
 
-const menuItems: Array<Array<VMenuItemProp>> = [
-  [
-    {
-      text: 'Edit',
-      icon: PencilIcon,
-      action: () => console.log('Edit')
-    },
-    {
-      text: 'Duplicate',
-      icon: DocumentDuplicateIcon,
-      action: () => console.log('Duplicate')
-    },
-    {
-      text: 'Archive',
-      icon: ArchiveBoxIcon,
-      disabled: true,
-      action: () => console.log('Archive')
-    },
-    {
-      text: 'Move',
-      icon: ArrowTopRightOnSquareIcon,
-      action: () => console.log('Move')
-    },
-    {
-      text: 'Delete',
-      icon: TrashIcon,
-      action: () => console.log('Delete')
-    },
-  ],
-  [
-    {
-      text: 'Home',
-      icon: HomeIcon,
-      to: '/',
-    },
-    {
-      text: 'About',
-      icon: QuestionMarkCircleIcon,
-      to: '/about',
-    },
-    {
-      text: 'maylor.io',
-      icon: UserIcon,
-      href: 'https://maylor.io',
-      newTab: true
-    },
-  ]
-]
-
 const disclosureItems = [
   {
     title: 'What is your favorite color?',
@@ -293,7 +245,7 @@ const disclosureItems = [
       <VMenu
         :items="menuItems"
         title="Menu"
-        :icon="ChevronDownIcon"
+        :icon="Cog6ToothIcon"
       />
     </div>
   </main>
