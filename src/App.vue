@@ -1,150 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import VListbox from './components/VListbox.vue'
-import { AcademicCapIcon, UserGroupIcon, BuildingOffice2Icon, PhoneIcon, PresentationChartBarIcon, ComputerDesktopIcon, CodeBracketIcon, QuestionMarkCircleIcon, BoltIcon, CurrencyDollarIcon, CurrencyEuroIcon, CurrencyPoundIcon, CurrencyYenIcon, BriefcaseIcon, UserIcon, CreditCardIcon, Cog6ToothIcon } from '@heroicons/vue/20/solid'
+import { Cog6ToothIcon, ShieldCheckIcon } from '@heroicons/vue/20/solid'
 import VCombobox from './components/VCombobox.vue';
 import VDisclosure from './components/VDisclosure.vue';
 import VRadioGroup from './components/VRadioGroup.vue';
 import VMultiListbox from './components/VMultiListbox.vue';
 import VMenu from './components/VMenu.vue';
 
+import people from '@resources/people'
+import currencies from '@resources/currencies'
+import plans from '@resources/plans'
 import menuItems from '@resources/menuItems'
+import roles from '@resources/roles'
 import frequentlyAskedQuestions from '@resources/frequentlyAskedQuestions'
 
-const people = ref([
-  {
-    id: 1,
-    name: 'Frodo',
-    age: 50,
-    iconBackground: 'bg-teal-500'
-  },
-  {
-    id: 2,
-    name: 'Gandalf',
-    age: 24_000,
-    icon: AcademicCapIcon
-  },
-  {
-    id: 3,
-    name: 'Samwise',
-    age: 38,
-    iconBackground: 'bg-rose-500'
-  },
-])
 const person = ref<number>()
-
-const currencies = ref([
-  {
-    iso_code: 'USD',
-    name: 'US Dollar',
-    icon: CurrencyDollarIcon
-  },
-  {
-    iso_code: 'EUR',
-    name: 'Euro',
-    icon: CurrencyEuroIcon
-  },
-  {
-    iso_code: 'GBP',
-    name: 'British Pound',
-    icon: CurrencyPoundIcon
-  },
-  {
-    iso_code: 'JPY',
-    name: 'Japanese Yen',
-    icon: CurrencyYenIcon
-  },
-])
 const currency = ref<string>()
-
-const plans = [
-  {
-    name: 'Startup',
-    ram: '12GB',
-    cpus: '6 CPUs',
-    disk: '160 GB SSD disk',
-    icon: UserIcon
-  },
-  {
-    name: 'Business',
-    ram: '16GB',
-    cpus: '8 CPUs',
-    disk: '512 GB SSD disk',
-    icon: BriefcaseIcon
-  },
-  {
-    name: 'Enterprise',
-    ram: '32GB',
-    cpus: '12 CPUs',
-    disk: '1024 GB SSD disk',
-    icon: CreditCardIcon
-  },
-]
 const plan = ref<string>()
-
-const availableRoles = [
-  {
-    role_id: 1,
-    role_name: 'Finance',
-    icon: CreditCardIcon
-  },
-  {
-    role_id: 2,
-    role_name: 'HR',
-    icon: UserGroupIcon,
-  },
-  {
-    role_id: 3,
-    role_name: 'Office Management',
-    icon: BuildingOffice2Icon,
-  },
-  {
-    role_id: 4,
-    role_name: 'Sales',
-    icon: PhoneIcon,
-  },
-  {
-    role_id: 5,
-    role_name: 'Marketing',
-    icon: PresentationChartBarIcon,
-  },
-  {
-    role_id: 6,
-    role_name: 'IT',
-    icon: ComputerDesktopIcon,
-  },
-  {
-    role_id: 7,
-    role_name: 'Development',
-    icon: CodeBracketIcon,
-  },
-  {
-    role_id: 8,
-    role_name: 'Support',
-    icon: QuestionMarkCircleIcon,
-  },
-  {
-    role_id: 9,
-    role_name: 'Management',
-    icon: BoltIcon,
-  }
-]
-const roles = ref<number[]>([])
-
-const disclosureItems = [
-  {
-    title: 'What is your favorite color?',
-    content: 'I\'ve thought about it long and hard, and it\'s got to be green.'
-  },
-  {
-    title: 'Can you show me some multi-paragraph content?',
-    content: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id felis et ipsum bibendum ultrices.',
-      'Sed nec diam eu diam mattis viverra. Nulla fringilla, orci ac euismod semper, magna diam porttitor mauris, quis sollicitudin sapien justo in libero.',
-      'Vestibulum mollis mauris enim. Morbi euismod magna ac lorem rutrum elementum. Donec viverra auctor lobortis.'
-    ]
-  },
-]
+const selectedRoles = ref<number[]>([])
 </script>
 
 <template>
@@ -178,8 +52,8 @@ const disclosureItems = [
     </div>
     <div class="col-span-12 sm:col-span-6 lg:col-span-4 2xl:col-span-3">
       <VMultiListbox
-        v-model="roles"
-        :items="availableRoles"
+        v-model="selectedRoles"
+        :items="roles"
         label="Multi Listbox"
         value-key="role_id"
         display-key="role_name"
