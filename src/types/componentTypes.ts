@@ -117,22 +117,34 @@ export interface VMenuItemProp  {
   newTab?: boolean
 }
 
-export interface VDisclosureItem {
+export interface VDisclosureItem<TItem> {
   /**
    * title for the disclosure item
    */
-  title: string
+  title: keyof TItem
 
   /**
    * content for the disclosure item
    * @remarks if this isn't provided, a slot with the name 'content' is expected
    */
-  content: string | string[]
+  content: keyof TItem
 }
 
-export interface VDisclosureProps {
+export interface VDisclosureProps<TItem> {
   /**
-   * list of disclosure items
+   * disclosure item
    */
-  items: VDisclosureItem[]
+  item?: TItem
+
+  /**
+   * title for the disclosure item
+   * @remarks if this isn't provided, a slot with the name 'title' is expected
+   */
+  titleKey?: KeyOfType<TItem, string> | ((item: TItem) => string)
+
+  /**
+   * content for the disclosure item
+   * @remarks if this isn't provided, a slot with the name 'content' is expected
+   */
+  contentKey?: KeyOfType<TItem, string> | ((item: TItem) => string)
 }
